@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "outDir": "./dist",
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "baseUrl": ".",  
+      "paths": {                                     // Definición de los alias de ruta
+        "@/*": ["src/*"]                            // Alias para que puedas usar '@' para referenciar la carpeta 'src'
+      },
+      "resolveJsonModule": true,                     // Permitir importaciones de módulos JSON
+      "isolatedModules": true    
+    },
+    "include": ["src/**/*", "__tests__/**/*"]
+  }

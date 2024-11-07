@@ -1,0 +1,89 @@
+service: challengapp
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-west-2
+  stage: dev
+  environment:
+    DYNAMODB_ENDPOINT: http://localhost:4200 
+    DYNAMODB_CLIENTS_TABLE: ${self:service}-${self:provider.stage}-clients
+
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "dynamodb:PutItem"
+            - "dynamodb:GetItem"
+            - "dynamodb:UpdateItem"
+            - "dynamodb:Query"
+          Resource:
+            - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMODB_CLIENTS_TABLE}"
+functions:
+  getCharacter:
+    handler: dist/index.handler
+    timeout: 30
+    events:
+      - http:
+          path: characters/{name}
+          method: get
+          cors: true
+  getFilm:
+    handler: dist/index.handler
+    timeout: 30
+    events:
+      - http:
+          path: films/{id}
+          method: get
+          cors: true
+  createClient:
+    handler: dist/index.handler
+    timeout: 30
+    events:
+      - http:
+          path: clients
+          method: post
+          cors: true
+  getClientById:
+    handler: dist/index.handler
+    timeout: 30
+    events:
+      - http:
+          path: clients/{clientId}
+          method: get
+          cors: true
+resources:
+  Resources:
+    PatientsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.DYNAMODB_CLIENTS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: clientId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: clientId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+    
+
+plugins:
+  - serverless-offline
+  - serverless-openapi-documentation
+
+custom:
+  serverless-offline:
+    httpPort: 3000
+  #- serverless-dynamodb-local
+# custom:
+#   dynamodb:
+#     start:
+#       port: 8000
+#       inMemory: true
+#       heapInitial: 200m
+#       heapMax: 1g
+#       migrate: true
+#     stages:
+#       - dev
