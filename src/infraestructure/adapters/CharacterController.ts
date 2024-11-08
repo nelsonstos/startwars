@@ -1,7 +1,7 @@
 import {Request, Response } from 'express';
 import asyncMiddleware from "../middlewares/async.middleware";
 import { sendResponse } from '../utils/responseUtils';
-import StarWarsCharacterUseCase from '../../application/useCases/StarWarsCharactersUseCase';
+import StarWarsCharacterUseCase from '../../application/useCases/StarWarsCharacterUseCase';
 
 class CharacterController {
 
