@@ -28,6 +28,14 @@ functions:
       - http:
           path: users
           method: post
+  getCharacter:
+    handler: dist/app.handler
+    timeout: 30
+    events:
+      - http:
+          path: characters/{name}
+          method: get
+          cors: true
 
 plugins:
   - serverless-offline
