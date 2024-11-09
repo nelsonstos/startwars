@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import FilmController from './../adapters/FilmController';
 
-const router =  Router();
+const filmRouter =  Router();
 
-router.get('/:id', FilmController.getFilm);
+filmRouter.get('/:id', FilmController.getFilm);
 
-export default router;
+export default filmRouter;

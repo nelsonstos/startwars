@@ -7,7 +7,6 @@ class StarWarsFilmUseCase {
         const swapiClient = new SwapiClient();
         const film = await swapiClient.getFilmById(id);
         const toSpanish = new StarWarsFilmsToSpanishResponseDTO(film);
-        console.log("toSpanish: ", toSpanish)
         if (toSpanish) {
           return toSpanish;
         } else {

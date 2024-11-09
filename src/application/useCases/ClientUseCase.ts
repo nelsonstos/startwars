@@ -8,7 +8,6 @@ class ClientUseCase {
     constructor( private clientRepository: ClientRepository) {}
         
     async createClient(clientData: ClientDTO): Promise<Client> {
-        console.log("service-client: ", clientData)
         const data = new ClientModel({
             clientId:  clientData.clientId,
             name: clientData.name,

@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import CharacterController from './../adapters/CharacterController';
 
-const router =  Router();
+const characterRouter =  Router();
 
-router.get('/:name', CharacterController.getCharacter);
+characterRouter.get('/:name', CharacterController.getCharacter);
 
-export default router;
+export default characterRouter;
 
