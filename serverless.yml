@@ -71,10 +71,12 @@ resources:
 
 plugins:
   - serverless-offline
-  #- serverless-openapi-documentation
+  - serverless-openapi-documentation
 
 custom:
   serverless-offline:
+    stage: dev
+    region: us-east-1
     httpPort: 3000
   #- serverless-dynamodb-local
 # custom:

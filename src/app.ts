@@ -6,6 +6,7 @@ import characterRouter from './infraestructure/routes/CharacterRoutes';
 import filmRouter from './infraestructure/routes/FilmRoutes';
 import clientRouter from './infraestructure/routes/ClientRoutes';
 import { notFoundHandler } from './infraestructure/middlewares/errorHandler';
+import { swaggerDocs } from './infraestructure/docs/swagger';
 
 
 const app:Application = express();
@@ -13,11 +14,11 @@ const app:Application = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
 
-
 // Inicializar el cliente Dynamoose
 DynamooseClient.getClient();
 
-
+// Swagger
+swaggerDocs(app);
 
 //app.use('/users', userRoutes);
 app.use('/characters', characterRouter);
@@ -25,7 +26,6 @@ app.use('/films', filmRouter);
 app.use('/clients', clientRouter);
 
 app.use(notFoundHandler);
-
 
 export const handler = serveless(app);
 export default app;
