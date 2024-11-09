@@ -1,5 +1,5 @@
 import serveless from 'serverless-http';
-import express, { Request, Response  } from 'express';
+import express, { Request, Response, Application  } from 'express';
 import DynamooseClient from './infraestructure/Clients/dynamooseClient';
 import userRoutes from './infraestructure/routes/UserRoutes';
 import characterRouter from './infraestructure/routes/CharacterRoutes';
@@ -8,7 +8,7 @@ import clientRouter from './infraestructure/routes/ClientRoutes';
 import { notFoundHandler } from './infraestructure/middlewares/errorHandler';
 
 
-const app = express();
+const app:Application = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
@@ -28,3 +28,4 @@ app.use(notFoundHandler);
 
 
 export const handler = serveless(app);
+export default app;
